@@ -119,7 +119,7 @@ public class Sampler extends GUIApplication {
 				}
 			}); 
 			viewObjects.add(cb);
-			viewObjects.add(new Jas());
+			viewObjects.add(new Flags());
 		}
 		
 		public void mouseDragged(MouseEvent m) {
