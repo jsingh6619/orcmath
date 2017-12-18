@@ -1,73 +1,56 @@
 package guiPlayer;
 
 import java.io.BufferedReader;
+
 import java.io.File;
+
 import java.io.FileReader;
+
 import java.io.FileWriter;
+
 import java.io.IOException;
+
 import java.util.ArrayList;
+
 import java.util.List;
+
 import java.util.Scanner;
 
-public class CatalogMaker {
+public class FileLoadingConsole {
 
-	private ArrayList<Flags> list;
-	
-	public CatalogMaker() {
-		list = new ArrayList<Flags>();
-		list.add(new Flags("USA", 1960));
-		list.add(new Flags("Canada", 1965));
-		list.add(new Flags("Mexico", 1968));
+	public static void main(String[] args){
+		List<String> content = testFileLoading();
+		displayContent(content);
+		testSaveContent("test.csv");
 	}
 
-	public static void main(String[] args) {
-		CatalogMaker x = new CatalogMaker();
-		Scanner in = new Scanner(System.in);
-		System.out.println(x.getCSVContent());
-		getUserInput();
-	}
-
-	public static void getUserInput() {
-		System.out.println("What country do you want to add?");
-		String country = "";
-		System.out.println("What year was it adopted?");
-		int year = "";
-//		addNewItem(country, year)
-	}
-
-	public String getCSVContent() {
-		String data = "Country,Year Adopted\n";
-		for(Flags f: list) {
-			data += f + "\n";
-		}
-		return data;
-	}
-	
-	public void addNewItem(String country, int year) {
-		list.add(new Flags(country, year));
-		System.out.println("Item added successfully!");
-	}
-	
-	public void saveCatalog() {
+	private static void testSaveContent(String fileName) {
 		try{    
-			FileWriter fw=new FileWriter("data.csv");
-			for(Flags f: list) {
-				fw.write(f + "\n");
-			}
+			FileWriter fw=new FileWriter(fileName);    
+			fw.write("This file was created programmatically.");    
 			fw.close();    
+			System.out.println("Success! File \""+fileName+"\" saved!");
 		}catch(IOException e){
 			System.out.println("An IOException was thrown. \nCheck to see that the directory where you tried to save the file actually exists.");
 		}
 	}
-	
-	public List<String> testFileLoading() {
+
+	private static void displayContent(List<String> content) {
+		//print the content:
+		for(String item : content){
+			System.out.println(item);
+		}
+	}
+
+	private static List<String> testFileLoading() {
 		Scanner in = new Scanner(System.in);
 		String fileName = "";
 		List<String> content = new ArrayList<String>();
+		//use this boolean to control the while loop. The user should have multiple chances to enter a correct filename
 		boolean opened = false;
 		while(!opened){
 			try {
-				System.out.println("Open what?");
+				System.out.println("Enter a file to open");
 				fileName = in.nextLine();
 				FileReader fileReader = new FileReader(new File(fileName));
 				String line = "";
@@ -90,4 +73,5 @@ public class CatalogMaker {
 		//close the Scanner
 		in.close();
 		return content;
+	}
 }
