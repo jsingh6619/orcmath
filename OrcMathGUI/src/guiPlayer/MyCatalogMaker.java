@@ -24,15 +24,15 @@ public class MyCatalogMaker {
 		MyCatalogMaker x = new MyCatalogMaker();
 		Scanner in = new Scanner(System.in);
 		System.out.println(x.getCSVContent());
-		getUserInput();
+		x.getUserInput();
 	}
 
-	public static void getUserInput() {
+	public void getUserInput() {
 		System.out.println("What country do you want to add?");
-		String country = "";
+		String country = getStringInput();
 		System.out.println("What year was it adopted?");
-		int year = "";
-//		addNewItem(country, year)
+		int year = getIntegerInput();
+		addFlag(new Flags(country, year));
 	}
 
 	public String getCSVContent() {
@@ -41,11 +41,6 @@ public class MyCatalogMaker {
 			data += f + "\n";
 		}
 		return data;
-	}
-	
-	public void addNewItem(String country, int year) {
-		list.add(new Flags(country, year));
-		System.out.println("Item added successfully!");
 	}
 	
 	public void saveCatalog() {
