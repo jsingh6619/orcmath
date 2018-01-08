@@ -133,7 +133,7 @@ public class SimonScreenJas extends ClickableScreen implements Runnable {
 	Placeholder until partner finishes implementation of ButtonInterface
 	*/
 	private ButtonInterfaceJas getAButton() {
-		return null;
+		return ;
 	}
 
 	/**

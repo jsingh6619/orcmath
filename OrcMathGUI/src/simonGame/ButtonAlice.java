@@ -15,14 +15,12 @@ public class ButtonAlice extends Button implements ButtonInterfaceJas {
 
 	@Override
 	public void setColor(Color color) {
-
 		this.setBackground(Color.blue);
 		
 	}
 
 	@Override
 	public void highlight() {
-		
 		this.setBackground(Color.yellow);
 		
 		
