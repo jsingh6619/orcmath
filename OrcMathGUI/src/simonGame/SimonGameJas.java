@@ -10,8 +10,8 @@ public class SimonGameJas extends GUIApplication {
 	}
 
 	public void initScreen() {
-		SimonScreenJas s = new SimonScreenJas(getWidth(), getHeight());
-		setScreen(s);
+		SimonScreenJas play = new SimonScreenJas(getWidth(), getHeight());
+		setScreen(play);
 	}
 
 	public static void main(String[] args) {

@@ -34,7 +34,7 @@ public class SimonScreenJas extends ClickableScreen implements Runnable {
 	private void nextRound() {
 		acceptingInput = false;
 		roundNumber++;
-		moveFace.add(randomMove());					//not sure Part 3 Line 3
+		moveFace.add(randomMove());					
 		progressFace.setRound(roundNumber);
 		progressFace.setSequenceSize(moveFace.size());
 		changeText("Simon's turn");
@@ -46,14 +46,14 @@ public class SimonScreenJas extends ClickableScreen implements Runnable {
 	}
 	
 	private void playSequence() {
-		ButtonInterfaceJas b = getAButton();
-		for(MoveInterfaceJas m: moveFace){ 
+		ButtonInterfaceJas b;
+		for(int i = 0; i < moveFace.size(); i++){ 
+			b = moveFace.get(i).getButton();
 		    if(b != null) {
 		    		b.dim();
 		    }
-		    b = m.getButton();
 		    b.highlight();
-		    int sleepTime = (1/roundNumber)/roundNumber;
+		    int sleepTime = 1000 - (100*roundNumber);
 		    try {
 				Thread.sleep(sleepTime);
 			} catch (InterruptedException e) {
@@ -94,11 +94,9 @@ public class SimonScreenJas extends ClickableScreen implements Runnable {
 		buttonFace = new ButtonInterfaceJas[numberOfButtons];
 		Color[] colours = {Color.BLACK, Color.RED, Color.GREEN, Color.BLUE, Color.GRAY};
 		for(int i = 0; i < numberOfButtons; i++) {
-			final ButtonInterfaceJas b = getAButton();
+			final ButtonInterfaceJas b = getAButton((90 * i) + 95,75, 50, 50, "", null);
 			buttonFace[i] = b;
 			b.setColor(colours[i]);
-			b.setX(5);
-			b.setY(5);
 			b.setAction(new Action(){
 				public void act(){
 					if(acceptingInput) {
@@ -119,7 +117,7 @@ public class SimonScreenJas extends ClickableScreen implements Runnable {
 						} else {
 							progressFace.gameOver();
 						}
-						if(sequenceIndex == progressFace.size()){ 
+						if(sequenceIndex == moveFace.size()){ 
 						    Thread nextRound = new Thread(SimonScreenJas.this); 
 						    nextRound.start(); 
 						}
@@ -129,18 +127,14 @@ public class SimonScreenJas extends ClickableScreen implements Runnable {
 		}
 	}
 	
-	/**
-	Placeholder until partner finishes implementation of ButtonInterface
-	*/
-	private ButtonInterfaceJas getAButton() {
-		return ;
+
+	private ButtonInterfaceJas getAButton(int x, int y, int w, int h, String text, Action action) {
+		ButtonJas button = new ButtonJas(x, y, w, h, text, action);
+		return button;
 	}
 
-	/**
-	Placeholder until partner finishes implementation of ProgressInterface
-	*/
 	private ProgressInterfaceJas getProgress() {
-		return null;
+		return new ProgressJas();
 	}
 
 	private MoveInterfaceJas randomMove() {
@@ -151,10 +145,7 @@ public class SimonScreenJas extends ClickableScreen implements Runnable {
 		return getMove(bIndex);
 	}
 	
-	/**
-	Placeholder until partner finishes implementation of MoveInterface
-	*/
 	private MoveInterfaceJas getMove(int bIndex) {
-		return null;
+		return new MoveJas(buttonFace[bIndex]);
 	}
 }
